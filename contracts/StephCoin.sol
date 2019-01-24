@@ -28,8 +28,8 @@ contract SafeMath {
 // https://github.com/ethereum/EIPs/blob/master/EIPS/eip-20-token-standard.md
 // ----------------------------------------------------------------------------
 contract ERC20Interface {
-    function totalSupply() public returns (uint);
-    function balanceOf(address tokenOwner) public returns (uint balance);
+    function totalSupply() public view returns (uint);
+    function balanceOf(address tokenOwner) public view returns (uint);
     function allowance(address tokenOwner, address spender) public returns (uint remaining);
     function transfer(address to, uint tokens) public returns (bool success);
     function approve(address spender, uint tokens) public returns (bool success);
@@ -103,7 +103,7 @@ contract StephCoin is ERC20Interface, Owned, SafeMath {
         symbol = "SM";  //our coin's symbol
         name = "StephCoin"; //our coin's name
         decimals = 18;
-        _totalSupply = 666;
+        _totalSupply = 10000;
         balances[msg.sender] = _totalSupply;
         emit Transfer(address(0), msg.sender, _totalSupply);
     }
@@ -112,7 +112,7 @@ contract StephCoin is ERC20Interface, Owned, SafeMath {
     // ------------------------------------------------------------------------
     // Total supply
     // ------------------------------------------------------------------------
-    function totalSupply() public  returns (uint) {
+    function totalSupply() public view returns (uint) {
         return _totalSupply  - balances[address(0)];
     }
 
@@ -120,7 +120,7 @@ contract StephCoin is ERC20Interface, Owned, SafeMath {
     // ------------------------------------------------------------------------
     // Get the token balance for account tokenOwner
     // ------------------------------------------------------------------------
-    function balanceOf(address tokenOwner) public  returns (uint balance) {
+    function balanceOf(address tokenOwner) public view returns (uint) {
         return balances[tokenOwner];
     }
 
