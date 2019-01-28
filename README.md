@@ -13,16 +13,36 @@ N’importe quel code mettant en application les spécifications ERC20 crée un 
 
 
 ## Configuration du projet
+### Installation Truffle et Ganache
+#### Truffle
+      npm install -g truffle
+#### Ganache
+Nous utiliserons [Ganache](http://truffleframework.com/ganache/) pour effectuer nos tests en local. Une fois installée il nous fournit 10 adresses de test avec 100 ETH par défaut. Il est disponible au http://truffleframework.com/ganache/ ou encore en lgne de commande avec la syntaxe suivante:
+      npm install -g ganache-cli
+Une fois installée, on va se rassurer qu'il tourne sur le port 8545.
 
-On part sur la base que vous avez déjà installé _nodeJs_, _npm_ et _truffle_
+#### Création du projet Truffle
       mkdir stephcoin && cd stephcoin && truffle init
-
-Installer [Ganache](http://truffleframework.com/ganache/) et se rassurer qu'il tourne sur le port 8545
 
 Ajouter au repertoire /contracts le fichier *StephCoin.sol*
 Ajouter au repertoire /migrations le fichier *2_deploy_contracts.js*
 ### Compilation et déploiement
-    truffle compile   (truffle.cmd si vous testez sous windows)
+    truffle compile 
     truffle migrate
 
-## Tests
+## Utilisation du Token
+      truffle console
+ 
+      let instance = await StephToken.deployed()
+      let accounts = await web3.eth.getAccounts()
+      let balance = await instance.balanceOf(accounts[0])
+      balance.toNumber()
+      
+      
+      instance.transfer(accounts[1], 500)
+      let received = await instance.getBalance(accounts[1])
+      received.toNumber()
+      
+      let newbalance = await instance.getBalance(accounts[1])
+      newbalance.toNumber()
+     
